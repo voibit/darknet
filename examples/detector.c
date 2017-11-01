@@ -115,7 +115,7 @@ void train_detector(char *datacfg, char *cfgfile, char *weightfile, int *gpus, i
         if(ngpus == 1){
             loss = train_network(net, train);
         } else {
-            loss = train_networks(nets, ngpus, train, 4);
+            loss = train_networks(nets, ngpus, train, 5);
         }
 #else
         loss = train_network(net, train);
@@ -533,6 +533,8 @@ void validate_detector_recall(char *datacfg, char *cfgfile, char *weightfile)
         find_replace(labelpath, "JPEGImages", "labels", labelpath);
         find_replace(labelpath, ".jpg", ".txt", labelpath);
         find_replace(labelpath, ".JPEG", ".txt", labelpath);
+        find_replace(labelpath, ".JPG", ".txt", labelpath);
+        find_replace(labelpath, ".bmp", ".txt", labelpath);
 
         int num_labels = 0;
         box_label *truth = read_boxes(labelpath, &num_labels);
